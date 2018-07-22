@@ -79,6 +79,7 @@ int main() {
 
 	PROFILE_END; // Early profile stop to finalize results for main
 
-	std::cout << profiler::getInstance() << std::endl;
+	// std::cout << profiler::getInstance() << std::endl;
+	profiler::getInstance().print(std::cout, 60);
 	return 0;
 }

@@ -36,7 +36,7 @@ public:
 	}
 	int enter() { return indent++; }
 	void leave() { indent--; }
-	std::ostream &print(std::ostream &o) const;
+	std::ostream &print(std::ostream &o, int fnwidth) const;
 	profiler(const profiler &) = delete;
 	profiler(profiler &&) = delete;
 	profiler &operator=(const profiler &) = delete;
@@ -105,8 +105,7 @@ void profile_gate(const char *fn, const int line, const char *func, bool enter, 
 		prof.leave();
 }
 
-inline std::ostream &profiler::print(std::ostream &o) const {
-	int fnwidth = 120;
+inline std::ostream &profiler::print(std::ostream &o, int fnwidth) const {
 	o << "\n" << std::left << std::setw(fnwidth) << "function";
 	o << "line	calls	   tottime	avgtime\n\n";
 	for (const single_profiler *p : profs) {
@@ -119,7 +118,7 @@ inline std::ostream &profiler::print(std::ostream &o) const {
 }
 
 inline std::ostream &operator<<(std::ostream &o, const profiler &prof) {
-	return prof.print(o);
+	return prof.print(o, 120);
 }
 
 }
